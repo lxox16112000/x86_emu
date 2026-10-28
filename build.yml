@@ -1,0 +1,23 @@
+name: Build und Test
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Kompilieren
+        run: g++ -std=c++17 -Wall -o emu main.cpp
+
+      - name: Emulator ausführen
+        run: ./emu
+
+      - name: Binary hochladen
+        uses: actions/upload-artifact@v4
+        with:
+          name: emu-linux
+          path: emu
